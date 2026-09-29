@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Module 14: B1T1 Bundle Pricing Engine</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrap">
+    
+    <!-- Hero Banner -->
+    <div class="hero">
+      <h1>Buy 1 Take 1 Bundle Pricing Engine</h1>
+    </div>
+
+    <!-- Input Section -->
+    <div class="card">
+      <h2>Input</h2>
+      <div class="row">
+        <div class="step">
+          <span>Eligible shoes in cart</span>
+          <button id="dec" aria-label="Remove a shoe">−</button>
+          <b id="cnt">0</b>
+          <button id="inc" aria-label="Add a shoe">+</button>
+        </div>
+        <button class="preset" id="b1t1" aria-pressed="false">B1T1 Bundle</button>
+      </div>
+      <div class="grid" id="grid" style="margin-top: 14px;"></div>
+    </div>
+
+    <!-- Process Section -->
+    <div class="card">
+      <h2>Process: Bundle Pattern Matching</h2>
+      <div class="flow" id="steps"></div>
+      <p class="proc" id="proc"></p>
+    </div>
+
+    <!-- Output Section -->
+    <div class="card">
+      <h2>Output</h2>
+      <div class="stats">
+        <div>
+          <span>Standard price</span>
+          <b id="std">₱0</b>
+        </div>
+        <div>
+          <span>Bundle price</span>
+          <b id="tot">₱0</b>
+        </div>
+        <div class="s">
+          <span>Savings</span>
+          <b id="sav">₱0</b>
+        </div>
+      </div>
+      <div class="out" id="out" style="margin-top: 12px;"></div>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
