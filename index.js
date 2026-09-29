@@ -74,12 +74,24 @@ function countEligible() {
   return found;
 }
 
-function stepItem(text, active) {
+function stepItem(number, title, formula, value, note, active) {
+  var classes = 'stp';
   if (active) {
-    return '<li>' + text + '</li>';
+    classes = classes + ' run';
   } else {
-    return '<li class="off">' + text + '</li>';
+    classes = classes + ' wait';
   }
+
+  return '<div class="' + classes + '">' +
+    '<div class="hd"><span class="num">' + number + '</span> ' + title + '</div>' +
+    '<div class="fm">' + formula + '</div>' +
+    '<div class="val">' + value + '</div>' +
+    '<div class="sb">' + note + '</div>' +
+    '</div>';
+}
+
+function stepArrow() {
+  return '<div class="arr">→</div>';
 }
 
 // ------------------------------------------
@@ -151,13 +163,24 @@ function render() {
   var steps = "";
   if (on) {
     steps =
-      stepItem("1. Count number of eligible B1T1 items in cart array: <b>" + count + "</b>", true) +
-      stepItem("2. bundle_pairs = " + count + " / 2 = <b>" + bundlePairs + "</b>; remaining_singles = " + count + " % 2 = <b>" + remainingSingles + "</b>", true) +
-      stepItem("3. Total Price = (" + bundlePairs + " × " + BUNDLE + ") + (" + remainingSingles + " × " + SINGLE + ") = <b>" + formatPeso(total) + "</b>", true);
+      stepItem(1, "Eligible items", "countEligible()", count, "eligible shoes in cart", true) +
+      stepArrow() +
+      stepItem(2, "Pairs & singles", bundlePairs + " pairs = " + count + " ÷ 2; " + remainingSingles + " singles = " + count + " % 2", "Pairs: " + bundlePairs + " · Singles: " + remainingSingles, "bundle pattern match", true) +
+      stepArrow() +
+      stepItem(3, "Total price", "(" + bundlePairs + " × " + BUNDLE + ") + (" + remainingSingles + " × " + SINGLE + ")", formatPeso(total), "final bundle total", true);
   } else {
-    steps = stepItem("Waiting: select the B1T1 Bundle preset button to run the steps.", false);
+    steps =
+      stepItem(1, "Eligible items", "countEligible()", count, "waiting for bundle mode", false) +
+      stepArrow() +
+      stepItem(2, "Pairs & singles", "bundle pattern disabled", "--", "B1T1 preset off", false) +
+      stepArrow() +
+      stepItem(3, "Total price", "individual pricing", formatPeso(count * SINGLE), "single-item pricing", false);
   }
-  el("steps").innerHTML = steps;
+
+  el("steps").innerHTML = '<div class="flow">' + steps + '</div>';
+
+  var procText = "Bundle pattern matching: " + count + " eligible shoes -> " + bundlePairs + " pairs and " + remainingSingles + " leftover shoe(s).";
+  el("proc").textContent = procText;
 
   // Output numbers
   var bundleApplied = false;
